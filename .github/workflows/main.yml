@@ -9,6 +9,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+        
+      - name: Clean up old artifacts
+        run: rm -rf op
       
       - name: Compress Source Code and Info File
         run: |
