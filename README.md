@@ -14,6 +14,8 @@ Start the game if it isn't already
 
 Set the Signature Mode of Openplanet to Developer (This has to be done whenever your game restarts)
 
+https://github.com/Johnnycyan/openplanet-MXRandom/assets/24556317/5106a979-d1b6-4192-86c8-00ed91f92f98
+
 ## Usage:
 
 Select "MX Randomizer" on the "Scripts" pannel.
