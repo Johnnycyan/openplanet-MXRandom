@@ -1,4 +1,4 @@
-name: Create Artifact
+name: Create and Move Artifact
 
 on:
   push:
@@ -9,10 +9,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-        
+      
       - name: Clean up old artifacts
         run: rm -rf op
-      
+
       - name: Compress Source Code and Info File
         run: |
           mkdir op
@@ -25,9 +25,9 @@ jobs:
         with:
           name: MXRandom
           path: op/MXRandom.op
-          
-      - name: Download Artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: MXRandom
-          path: op/MXRandom.op
+
+      - name: Move Artifact to Main Files Directory
+        run: cp op/MXRandom.op .
+
+      - name: Display Main Files Directory
+        run: ls
