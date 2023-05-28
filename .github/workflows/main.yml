@@ -1,48 +1,24 @@
-name: Create Release and Attach .op File
+name: Create Artifact
+
 on:
   push:
     
 jobs:
   build:
     runs-on: ubuntu-latest
-    
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
       
-    - name: Compress Source Code and Info File
-      run: |
-        mkdir op
-        cp -r src/ op/src
-        cp info.toml op/
-        cd op && zip -r MXRandom.op src/ info.toml
-    
-    - name: Create Release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.SECRET }}
-      with:
-        tag_name: 'v1.0.0-${{ github.sha }}' # Use github.sha instead of a fixed value
-        release_name: 'Release version 1.0.0'
-        body: |
-          Release version 1.0.0
-        draft: false
-        prerelease: false
-    
-    - name: Get Release ID and Upload URL
-      run: |
-        echo ::set-output name=release_id::${{ github.event.release.id }}
-        echo ::set-output name=upload_url::${{ github.event.release.upload_url }}
-      id: outputs
-      env:
-        GITHUB_TOKEN: ${{ secrets.SECRET }}
-        
-    - name: Upload .op File
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.SECRET }}
-      with:
-        asset_path: op/MXRandom.op
-        asset_name: MXRandom.op
-        asset_content_type: application/octet-stream
-        upload_url: ${{ steps.outputs.upload_url }}
+      - name: Compress Source Code and Info File
+        run: |
+          mkdir op
+          cp -r src/ op/src
+          cp info.toml op/
+          cd op && zip -r MXRandom.op src/ info.toml
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: MXRandom
+          path: op/MXRandom.op
