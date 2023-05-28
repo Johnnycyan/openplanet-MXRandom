@@ -11,9 +11,3 @@ jobs:
         type: 'zip'
         filename: 'MXRandom.op'
         exclusions: '*.git* *.vscode* .CONTRIBUTING.md LICENSE README.md build-op.example.bat'
-        
-    - name: Upload Release
-      uses: ncipollo/release-action@v1.12.0
-      with:
-        artifacts: "MXRandom.op"
-        token: ${{ secrets.GITHUB_TOKEN }}
