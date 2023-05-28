@@ -1,13 +1,40 @@
-name: Create Archive
-on: [push]
+name: Create Release and Attach .op File
+on:
+  push:
+    
 jobs:
   build:
     runs-on: ubuntu-latest
+    
     steps:
-    - uses: actions/checkout@master
-    - name: Archive Release
-      uses: thedoctor0/zip-release@0.7.1
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      
+    - name: Compress Source Code and Info File
+      run: |
+        mkdir op
+        cp -r src/ op/src
+        cp info.toml op/
+        cd op && zip -r MXRandom.op src/ info.toml
+    
+    - name: Create Release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        type: 'zip'
-        filename: 'MXRandom.op'
-        exclusions: '*.git* *.vscode* .CONTRIBUTING.md LICENSE README.md build-op.example.bat'
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        body: |
+          Release ${{ github.ref }}
+        draft: false
+        prerelease: false
+    
+    - name: Upload .op File
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        asset_path: op/MXRandom.op
+        asset_name: MXRandom.op
+        asset_content_type: application/octet-stream
+        release_id: ${{ github.event.release.id }}
