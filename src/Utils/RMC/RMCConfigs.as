@@ -27,7 +27,7 @@ class RMCConfig {
 #endif
 
         if (json.HasKey("search-lengthop") && json["search-lengthop"].GetType() == Json::Type::String) lengthop = json["search-lengthop"];
-        else lengthop = "1";
+        else lengthop = "0";
         if (json.HasKey("search-length") && json["search-length"].GetType() == Json::Type::String) length = json["search-length"];
         else length = "9";
     }
