@@ -30,7 +30,7 @@ class RMCConfig {
         else lengthop = "0";
         if (json.HasKey("search-length") && json["search-length"].GetType() == Json::Type::String) length = json["search-length"];
         else length = "9";
-        lengthhop = "0";
+        lengthop = "0";
     }
 
     bool isMapHasPrepatchMapTags(const MX::MapInfo &in map) {
