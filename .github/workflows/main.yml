@@ -49,3 +49,4 @@ jobs:
           asset_path: ./MXRandom.op
           asset_name: MXRandom.op
           asset_content_type: application/zip
+          timeout: 120000 # set timeout to 2 minutes
