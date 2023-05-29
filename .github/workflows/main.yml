@@ -31,15 +31,3 @@ jobs:
 
       - name: Display Main Files Directory
         run: ls
-
-      - name: Update Release
-        uses: actions/github@v4
-        with:
-          github-token: ${{ secrets.SECRET }}
-          repository: ${{ github.repository }}
-          tag_name: v1.0.0
-          overwrite: true
-          assets: |
-            MXRandom.op
-        env:
-          GITHUB_TOKEN: ${{ secrets.SECRET }}
